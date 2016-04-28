@@ -5,33 +5,34 @@
   connection: local
   gather_facts: False
   tasks:
-    - name: Download squid
-      get_url: url=http://squid-cache.org/Versions/v3/3.5/squid-3.5.16-20160419-r14030.tar.gz dest=./
-    - name: Download and extract squid
-      shell: tar -xvf squid-3.5.16-20160419-r14030.tar.gz
-    - name: Rename squid install folder
-      shell: mv squid-3.5.16-20160419-r14030 squid
-    - name: Configure squid pre-install settings
-      shell: cd squid && ./configure --prefix=/usr/local/squid
-    - name: Make squid
-      shell: cd squid && make all
-    - name: Make install squid
-      shell: cd squid && make install
-      sudo: True
-    - name: Backup original config file
-      shell: mv /usr/local/squid/etc/squid.conf /usr/local/squid/etc/squid.conf.original
-      sudo: True
-    - name: Copy conf file
-      template: src=squid.conf dest=/usr/local/squid/etc/squid.conf mode=777
-      sudo: True 
-    - name: Create required access file
-      file: path=/usr/local/squid/var/logs/access.log state=touch mode=777
-      sudo: True
-    - name: Create required cache file
-      file: path=/usr/local/squid/var/logs/cache.log state=touch mode=777
-      sudo: True
-    - name: Create directory for swap and temp
-      file: path=/home/{{ user }}/squid state=directory mode=777
-      sudo: True
-    - name: Remove unnecessary files
-      shell: sudo rm -rf squid-3.5.16-20160419-r14030.tar.gz squid
+    #- name: Download squid
+    #  get_url: url=http://squid-cache.org/Versions/v3/3.5/squid-3.5.16-20160419-r14030.tar.gz dest=./
+    #- name: Download and extract squid
+    #  shell: tar -xvf squid-3.5.16-20160419-r14030.tar.gz
+    #- name: Rename squid install folder
+    #  shell: mv squid-3.5.16-20160419-r14030 squid
+    #- name: Configure squid pre-install settings
+    #  shell: cd squid && ./configure --prefix=/usr/local/squid
+    #- name: Make squid
+    #  shell: cd squid && make all
+    #- name: Make install squid
+    #  shell: cd squid && make install
+    #  sudo: True
+    #- name: Backup original config file
+    #  shell: mv /usr/local/squid/etc/squid.conf /usr/local/squid/etc/squid.conf.original
+    #  sudo: True
+    #- name: Copy conf file
+    #  template: src=squid.conf dest=/usr/local/squid/etc/squid.conf mode=777
+    #  sudo: True 
+    #- name: Create required access file
+    #  file: path=/usr/local/squid/var/logs/access.log state=touch mode=777
+    #  sudo: True
+    #- name: Create required cache file
+    #  file: path=/usr/local/squid/var/logs/cache.log state=touch mode=777
+    #  sudo: True
+    #- name: Create directory for swap and temp
+    #  file: path=/home/{{ user }}/squid state=directory mode=777
+    #  sudo: True
+    #- name: Remove unnecessary files
+    #  shell: sudo rm -rf squid-3.5.16-20160419-r14030.tar.gz squid
+    - debug: msg="Squid has been set up. Run START.sh to start the server. Configure browsers to your IP on port 3128"
